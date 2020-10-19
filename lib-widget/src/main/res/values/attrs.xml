@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--按钮点击样式-->
+    <attr name="pressedMode" format="enum">
+        <enum name="light" value="1" />
+        <enum name="dark" value="2" />
+    </attr>
+    <attr name="backgroundColor" format="color" />
+    <attr name="borderColor" format="color" />
+    <attr name="borderWidth" format="dimension" />
+    <attr name="cornerRadios" format="dimension" />
+    <attr name="hasShadow" format="boolean" />
+
+    <declare-styleable name="JButton">
+       <attr name="pressedMode"/>
+       <attr name="backgroundColor"/>
+       <attr name="borderColor"/>
+       <attr name="borderWidth"/>
+       <attr name="cornerRadios"/>
+       <attr name="hasShadow"/>
+    </declare-styleable>
+
+    <declare-styleable name="JTextView">
+        <attr name="pressedMode"/>
+        <attr name="backgroundColor"/>
+        <attr name="borderColor"/>
+        <attr name="borderWidth"/>
+        <attr name="cornerRadios"/>
+        <attr name="hasShadow"/>
+    </declare-styleable>
+</resources>

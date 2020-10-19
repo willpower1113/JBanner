@@ -1,0 +1,4 @@
+include ':lib-widget'
+include ':lib-banner'
+include ':app'
+rootProject.name = "JBanner"

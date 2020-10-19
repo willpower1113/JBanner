@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="JLamp">
+        <attr name="lampColor" format="color"></attr>
+        <attr name="lampSize" format="dimension"></attr>
+    </declare-styleable>
+</resources>
