@@ -9,23 +9,29 @@
     <attr name="borderColor" format="color" />
     <attr name="borderWidth" format="dimension" />
     <attr name="cornerRadios" format="dimension" />
-    <attr name="hasShadow" format="boolean" />
 
     <declare-styleable name="JButton">
-       <attr name="pressedMode"/>
-       <attr name="backgroundColor"/>
-       <attr name="borderColor"/>
-       <attr name="borderWidth"/>
-       <attr name="cornerRadios"/>
-       <attr name="hasShadow"/>
+        <attr name="pressedMode" />
+        <attr name="backgroundColor" />
+        <attr name="borderColor" />
+        <attr name="borderWidth" />
+        <attr name="cornerRadios" />
+        <attr name="android:shadowRadius" />
     </declare-styleable>
 
     <declare-styleable name="JTextView">
-        <attr name="pressedMode"/>
-        <attr name="backgroundColor"/>
-        <attr name="borderColor"/>
-        <attr name="borderWidth"/>
-        <attr name="cornerRadios"/>
-        <attr name="hasShadow"/>
+        <attr name="pressedMode" />
+        <attr name="backgroundColor" />
+        <attr name="borderColor" />
+        <attr name="borderWidth" />
+        <attr name="cornerRadios" />
+        <attr name="android:shadowRadius" />
+    </declare-styleable>
+
+    <declare-styleable name="JFloatActionButton">
+        <attr name="pressedMode" />
+        <attr name="backgroundColor" />
+        <attr name="android:shadowRadius" />
+        <attr name="movable" format="boolean" />
     </declare-styleable>
 </resources>

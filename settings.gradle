@@ -1,3 +1,6 @@
+include ':JUtils'
+include ':JPopup'
+include ':libStyle'
 include ':lib-widget'
 include ':lib-banner'
 include ':app'

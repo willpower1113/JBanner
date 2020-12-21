@@ -1,5 +1,2 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.willpower.widget">
-
-    /
+<manifest package="com.willpower.widget">
 </manifest>

@@ -1,12 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <com.willpower.widget.JTextView
-        android:id="@+id/mTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"/>
+    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="310dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:onClick="onTest"
+        android:text="TextView做Button"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:borderColor="@color/colorPrimaryDark"
+        app:borderWidth="1dp"
+        app:cornerRadios="5dp" />
 
+
+    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:onClick="onTest"
+        android:shadowRadius="10"
+        android:text="带阴影效果1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:borderColor="@color/colorPrimaryDark"
+        app:borderWidth="1dp"
+        app:cornerRadios="5dp" />
+
+    <com.willpower.widget.JButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name"
+        app:backgroundColor="#ffffff"
+        app:borderColor="@color/colorPrimaryDark"
+        app:borderWidth="1dp"
+        app:cornerRadios="5dp" />
+
+    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:onClick="onTest"
+        android:shadowRadius="10"
+        android:text="带阴影效果"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:backgroundColor="@color/colorPrimaryDark"
+        android:background="?android:attr/selectableItemBackground"
+        app:cornerRadios="5dp" />
+
+    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:onClick="onTest"
+        android:text="带阴影效果"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:backgroundColor="@color/colorPrimaryDark"
+        app:cornerRadios="5dp"
+        app:pressedMode="dark" />
+
+    <com.willpower.widget.JFloatActionButton
+        android:id="@+id/test"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:onClick="onTest"
+        android:shadowRadius="20"
+        android:src="@drawable/icon_040_cover"
+        app:movable="true"/>
 </LinearLayout>
