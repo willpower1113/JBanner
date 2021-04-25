@@ -6,11 +6,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.willpower.banner.IBanner.DEFAULT_BANNER_SIZE
+import com.willpower.banner.IBanner.Companion.DEFAULT_BANNER_SIZE
 import com.willpower.banner.animator.*
 import com.willpower.banner.item.ErrorFragment
 import com.willpower.banner.item.ImageFragment
@@ -26,6 +25,7 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     private var animator: IBanner.Animator = IBanner.Animator.NONE
     private var mData: ArrayList<IModel<*>> = arrayListOf()
     private var mActivity: FragmentActivity? = null
+    private var mLogger: ILogger? = null
     private var bannerDirectory: String = ""
     private var defaultBanners: IntArray? = null
     private var childClickable = false
@@ -33,12 +33,35 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     private var mListener: OnClickListener? = null
     private var clickTime = 0L
 
+    companion object {
+        var displayWidth = 500
+        var displayHeight = 500
+    }
+
+    init {
+        post {
+            if (width != 0)
+                displayWidth = width
+            if (height != 0)
+                displayHeight = height
+        }
+    }
+
     @Volatile
     private var isPlay: Boolean = false
 
-    override fun bind(activity: FragmentActivity): IBanner {
+    override fun bind(activity: FragmentActivity): JBanner {
         mActivity = activity
         return this
+    }
+
+    override fun logger(iLogger: ILogger): IBanner {
+        mLogger = iLogger
+        return this
+    }
+
+    override fun getLogger(): ILogger? {
+        return mLogger
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
@@ -55,8 +78,9 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
                     clickTime = System.currentTimeMillis()
                 }
                 MotionEvent.ACTION_UP -> {
-                    if (System.currentTimeMillis() - clickTime >= 50L) {
-                        Log.i(IBanner.TAG, "click banner")
+                    if (System.currentTimeMillis() - clickTime >= 10L) {
+                        if (BuildConfig.DEBUG)
+                            mLogger?.i(BuildConfig.TAG, "click banner")
                         it.onClick(this)
                     }
                 }
@@ -69,7 +93,7 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
         }
     }
 
-    override fun clickListener(listener: OnClickListener): IBanner {
+    override fun clickListener(listener: OnClickListener): JBanner {
         mListener = listener
         return this
     }
@@ -77,15 +101,16 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /**
      * 默认Banner图
      */
-    override fun defaultBanners(vararg defaultBanners: Int): IBanner {
+    fun defaultBanners(vararg defaultBanners: Int): JBanner {
         this.defaultBanners = defaultBanners
         return this
     }
 
+
     /**
      * 循环周期
      */
-    override fun interval(interval: Long): IBanner {
+    override fun interval(interval: Long): JBanner {
         this.interval = interval
         return this
     }
@@ -97,13 +122,14 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     override fun next() {
         if (!isPlay) return
         currentItem++
-        Log.e(IBanner.TAG, "play now: ${currentItem % mData.size}")
+        if (BuildConfig.DEBUG)
+            mLogger?.i(BuildConfig.TAG, "play now: ${currentItem % mData.size}")
     }
 
     /**
      * 设置动画
      */
-    override fun animator(animator: IBanner.Animator): IBanner {
+    override fun animator(animator: IBanner.Animator): JBanner {
         this.animator = animator;
         return this
     }
@@ -111,19 +137,24 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /**
      * 创建
      */
-    private fun create(): IBanner {
+    private fun create(): JBanner {
         if (mActivity == null) throw NullPointerException("please bind FragmentActivity first!")
         val directory = File(bannerDirectory)
         if (!directory.exists()) {
-            Log.d(IBanner.TAG, "default banners")
+            if (BuildConfig.DEBUG)
+                mLogger?.i(BuildConfig.TAG, "default banners")
             defaultBanners?.forEach { addImage(it) }
         } else {
+            var count = 0
             val listFiles = directory.listFiles()
-            if (listFiles == null || listFiles.isEmpty()) {
-                Log.d(IBanner.TAG, "default banners")
+            listFiles?.forEach { if (it.isFile) count++ }
+            if (count == 0) {
+                if (BuildConfig.DEBUG)
+                    mLogger?.i(BuildConfig.TAG, "default banners")
                 defaultBanners?.forEach { addImage(it) }
             } else {
-                Log.d(IBanner.TAG, "user banners")
+                if (BuildConfig.DEBUG)
+                    mLogger?.i(BuildConfig.TAG, "user banners")
                 listFiles.forEach {
                     if (Identify.identify(it.absolutePath) == IBanner.IMAGE)
                         addImage(it.absolutePath)
@@ -132,9 +163,9 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
                 }
             }
         }
-        Log.d(IBanner.TAG, "banner size [before make up]: ${mData.size}")
+        mLogger?.i(BuildConfig.TAG, "banner size [before make up]: ${mData.size}")
         makeUp()
-        Log.d(IBanner.TAG, "banner size [after make up]: ${mData.size}")
+        mLogger?.i(BuildConfig.TAG, "banner size [after make up]: ${mData.size}")
         mData.forEach { data ->
             val bundle = Bundle()
             bundle.putLong("interval", interval)
@@ -152,6 +183,7 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
             fragments.add(fragment)
         }
         try {
+            //替换 ViewPager 的 Scroller
             val mField: Field = ViewPager::class.java.getDeclaredField("mScroller")
             mField.isAccessible = true
             val jScroller = JScroller(context, LinearInterpolator())
@@ -180,6 +212,8 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     private fun makeUp() {
         if (mData.isEmpty() || mData.size >= DEFAULT_BANNER_SIZE) {
             return
+        } else if (mData.size == 1) {
+            return //如果只有一张Banner图，不进行补偿
         } else {
             val temp = mData
             mData.addAll(temp)
@@ -190,7 +224,7 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /**
      * 添加图片
      */
-    override fun addImage(res: Int): IBanner {
+    fun addImage(res: Int): JBanner {
         mData.add(IModel(res, IBanner.IMAGE))
         return this
     }
@@ -198,7 +232,7 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /**
      * 添加图片
      */
-    override fun addImage(path: String): IBanner {
+    fun addImage(path: String): JBanner {
         mData.add(IModel(path, IBanner.IMAGE))
         return this
     }
@@ -206,7 +240,7 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /**
      * 添加视频
      */
-    override fun addVideo(path: String): IBanner {
+    fun addVideo(path: String): JBanner {
         mData.add(IModel(path, IBanner.VIDEO))
         return this
     }
@@ -214,23 +248,42 @@ class JBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /**
      * 设置Banner 文件路径
      */
-    override fun directory(directory: String): IBanner {
+    fun directory(directory: String): JBanner {
         this.bannerDirectory = directory
         return this
     }
 
+    /**
+     * 开启轮播
+     */
     override fun start() {
+        if (mData.size == 1) return
+        if (isPlay) return
         isPlay = true
-        visibility = View.VISIBLE
         create()
+    }
+
+    /**
+     * 判断显示状态
+     */
+    override fun isShowOnScreen(): Boolean {
+        return visibility == View.VISIBLE
+    }
+
+    /**
+     * 判断 轮播 状态
+     */
+    override fun isPlaying(): Boolean {
+        return isPlay
     }
 
     /**
      * 暂停动画
      */
     override fun stop() {
+        if (mData.size == 1) return
+        if (!isPlay) return
         isPlay = false
-        visibility = View.GONE
         fragments.clear()
         mData.clear()
         adapter?.notifyDataSetChanged()

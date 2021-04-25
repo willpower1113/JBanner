@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.willpower.widget.JTextView
         android:layout_width="310dp"
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
@@ -20,7 +20,7 @@
         app:cornerRadios="5dp" />
 
 
-    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.willpower.widget.JTextView
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
@@ -35,7 +35,7 @@
         app:borderWidth="1dp"
         app:cornerRadios="5dp" />
 
-    <com.willpower.widget.JButton xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.willpower.widget.JButton
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
@@ -46,7 +46,7 @@
         app:borderWidth="1dp"
         app:cornerRadios="5dp" />
 
-    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.willpower.widget.JTextView
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
@@ -61,7 +61,7 @@
         android:background="?android:attr/selectableItemBackground"
         app:cornerRadios="5dp" />
 
-    <com.willpower.widget.JTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.willpower.widget.JTextView
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
@@ -74,16 +74,4 @@
         app:backgroundColor="@color/colorPrimaryDark"
         app:cornerRadios="5dp"
         app:pressedMode="dark" />
-
-    <com.willpower.widget.JFloatActionButton
-        android:id="@+id/test"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:onClick="onTest"
-        android:shadowRadius="20"
-        android:src="@drawable/icon_040_cover"
-        app:movable="true"/>
 </LinearLayout>

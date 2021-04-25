@@ -7,10 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
-import com.willpower.banner.IBanner
-import com.willpower.banner.IFragment
-import com.willpower.banner.Identify
-import com.willpower.banner.R
+import com.willpower.banner.*
 import java.io.File
 import java.io.FileInputStream
 
@@ -23,7 +20,7 @@ class VideoFragment : IFragment(), TextureView.SurfaceTextureListener {
     private val mHandler: Handler = Handler(Looper.getMainLooper())
     private val mRunnable: Runnable = Runnable {
         mBanner!!.next()
-        Log.e(IBanner.TAG, "video to next: $data")
+        Log.e(BuildConfig.TAG, "video to next: $data")
     }
     private var isPrepared = false;
 
@@ -59,19 +56,19 @@ class VideoFragment : IFragment(), TextureView.SurfaceTextureListener {
                 }
             }
             mMediaPlayer?.setOnPreparedListener {
-                Log.d(IBanner.TAG, "video prepared：[$data]")
+                Log.d(BuildConfig.TAG, "video prepared：[$data]")
                 isPrepared = true
                 mMediaPlayer?.seekTo(0)
                 if (userVisibleHint)
                     mMediaPlayer?.start()
             }
             mMediaPlayer?.setOnCompletionListener {
-                Log.d(IBanner.TAG, "video play complete[$data]")
+                Log.d(BuildConfig.TAG, "video play complete[$data]")
                 mHandler.postDelayed(mRunnable, 1000L)
             }
             mMediaPlayer?.prepareAsync()
         } catch (e: Exception) {
-            Log.e(IBanner.TAG, "video exception[$data]", e)
+            Log.e(BuildConfig.TAG, "video exception[$data]", e)
             mHandler.postDelayed(mRunnable, interval)
         }
     }

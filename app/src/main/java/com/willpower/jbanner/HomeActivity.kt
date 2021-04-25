@@ -2,6 +2,7 @@ package com.willpower.jbanner
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -17,14 +18,17 @@ class HomeActivity : BaseActivity() {
     }
 
     fun toPageJLamp(v: View) {
+        //显示导航栏
+        ShellUtil.exec("LD_LIBRARY_PATH=/vendor/lib:/system/lib am startservice -n com.android.systemui/.SystemUIService")
     }
 
     fun toPageJButton(v: View) {
-        startActivity(Intent(this, PageJButton::class.java))
+        //隐藏导航栏
+        ShellUtil.exec("LD_LIBRARY_PATH=/vendor/lib:/system/lib service call activity 42 s16 com.android.systemui")
     }
 
     fun toPageJTextView(v: View) {
-        startActivity(Intent(this, PageJTextView::class.java))
+        ShellUtil.exec("screencap -p /sdcard/screen.png")
     }
 
     fun toPageJEditText(v: View) {

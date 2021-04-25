@@ -7,17 +7,22 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <com.willpower.widget.JTextView
-        android:layout_width="400px"
-        android:layout_height="100px"
-        android:layout_marginTop="40px"
-        android:gravity="center"
-        android:onClick="toPageJBanner"
-        android:text="JBanner[轮播图]"
-        android:textColor="#FFFFFF"
-        app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+
+    <com.willpower.widget.JLinearLayout
+        android:layout_width="340px"
+        android:layout_height="340px"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:borderColor="#ffffff"
+        app:borderWidth="2px"
+        app:cornerRadios="170px">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent" />
+
+    </com.willpower.widget.JLinearLayout>
 
     <com.willpower.widget.JTextView
         android:layout_width="400px"
@@ -25,11 +30,11 @@
         android:layout_marginTop="40px"
         android:gravity="center"
         android:onClick="toPageJLamp"
-        android:text="JLamp[跑马灯]"
+        android:shadowRadius="0"
+        android:text="显示导航栏"
         android:textColor="#FFFFFF"
         app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+        app:pressedMode="light" />
 
     <com.willpower.widget.JTextView
         android:layout_width="400px"
@@ -37,11 +42,11 @@
         android:layout_marginTop="40px"
         android:gravity="center"
         android:onClick="toPageJButton"
-        android:text="JButton"
+        android:shadowRadius="0"
+        android:text="隐藏导航栏"
         android:textColor="#FFFFFF"
         app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+        app:pressedMode="light" />
 
     <com.willpower.widget.JTextView
         android:layout_width="400px"
@@ -49,11 +54,11 @@
         android:layout_marginTop="40px"
         android:gravity="center"
         android:onClick="toPageJTextView"
-        android:text="JTextView"
+        android:shadowRadius="0"
+        android:text="截屏"
         android:textColor="#FFFFFF"
         app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+        app:pressedMode="light" />
 
 
     <com.willpower.widget.JTextView
@@ -62,11 +67,11 @@
         android:layout_marginTop="40px"
         android:gravity="center"
         android:onClick="toPageJEditText"
+        android:shadowRadius="0"
         android:text="JEditText"
         android:textColor="#FFFFFF"
         app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+        app:pressedMode="light" />
 
     <com.willpower.widget.JTextView
         android:layout_width="400px"
@@ -74,11 +79,11 @@
         android:layout_marginTop="40px"
         android:gravity="center"
         android:onClick="toPageJImageView"
+        android:shadowRadius="0"
         android:text="JImageView"
         android:textColor="#FFFFFF"
         app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+        app:pressedMode="light" />
 
     <com.willpower.widget.JTextView
         android:layout_width="400px"
@@ -86,9 +91,9 @@
         android:layout_marginTop="40px"
         android:gravity="center"
         android:onClick="toPageJPopup"
+        android:shadowRadius="0"
         android:text="JPopup"
         android:textColor="#FFFFFF"
         app:backgroundColor="@color/colorAccent"
-        app:pressedMode="light"
-        android:shadowRadius="0"/>
+        app:pressedMode="light" />
 </LinearLayout>

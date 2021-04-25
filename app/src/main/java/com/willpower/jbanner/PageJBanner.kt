@@ -23,9 +23,7 @@ class PageJBanner : AppCompatActivity() {
                 .interval(3000L)
                 .turnDuration(700)
                 .animator(IBanner.Animator.TRANSITION3D)
-                .clickListener {
-                    Toast.makeText(this, "点击", Toast.LENGTH_SHORT).show()
-                }
+                .clickListener(View.OnClickListener { Toast.makeText(this@PageJBanner, "点击", Toast.LENGTH_SHORT).show() })
     }
 
     private fun statusBar() {

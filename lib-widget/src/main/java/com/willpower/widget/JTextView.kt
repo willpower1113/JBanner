@@ -12,7 +12,8 @@ import com.willpower.widget.entity.IImage
 import com.willpower.widget.helper.CanvasHelper
 import com.willpower.widget.helper.ClickProxy
 
-class JTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
+class JTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : AppCompatTextView(context, attrs, defStyleAttr), JWidget {
     private var helper: CanvasHelper
 
     init {
@@ -29,16 +30,13 @@ class JTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         helper.pressedMode = ta.getInt(R.styleable.JTextView_pressedMode, CanvasHelper.PRESSED_LIGHT_MODE)
         helper.borderColor = ta.getColor(R.styleable.JTextView_borderColor, Color.TRANSPARENT)
         helper.borderWidth = ta.getDimension(R.styleable.JTextView_borderWidth, 0f)
-        helper.mBackground = ta.getColor(R.styleable.JTextView_backgroundColor, Color.WHITE)
-        helper.cornerRadios = ta.getFloat(R.styleable.JTextView_cornerRadios,8f)
-        helper.shadowRadios = ta.getFloat(R.styleable.JTextView_android_shadowRadius, 8f)
-        helper.hasShadow = helper.shadowRadios > 0f
+        helper.mBackground = ta.getColor(R.styleable.JTextView_backgroundColor, Color.TRANSPARENT)
+        helper.cornerRadios = ta.getDimension(R.styleable.JTextView_cornerRadios, 0f)
         ta.recycle()
     }
 
     override fun onDraw(canvas: Canvas) {
         helper.mathBound(width = width, height = height)
-        helper.drawShadowIfNeed(canvas = canvas)
         helper.drawBackground(canvas = canvas)
         helper.drawBorderIfNeed(canvas = canvas)
         super.onDraw(canvas)
@@ -69,10 +67,14 @@ class JTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     /**
      * 代理 点击事件
      */
-    override fun setOnClickListener(l: OnClickListener?) {
-        super.setOnClickListener(ClickProxy(l, 1000L))
+    override fun setOnClickListener(l: OnClickListener) {
+        super.setOnClickListener(ClickProxy(l))
     }
 
+    fun clearText(): JTextView {
+        text = ""
+        return this
+    }
 
     /**
      * 添加带样式的文字
@@ -88,5 +90,25 @@ class JTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     fun appendImage(image: IImage): JTextView {
         append(image.value())
         return this
+    }
+
+    override fun setCornerRadios(radios: Float) {
+        helper.cornerRadios = radios
+        postInvalidate()
+    }
+
+    override fun setBorderColor(color: Int) {
+        helper.borderColor = color
+        postInvalidate()
+    }
+
+    override fun setBorderWidth(width: Float) {
+        helper.borderWidth = width
+        postInvalidate()
+    }
+
+    override fun setWidgetBackgroundColor(color: Int) {
+        helper.mBackground = color
+        postInvalidate()
     }
 }

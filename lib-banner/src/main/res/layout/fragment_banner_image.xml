@@ -2,11 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/mPicturePlayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"/>
+
     <TextView
         android:id="@+id/tvDetail"
         android:layout_width="match_parent"
@@ -16,5 +18,5 @@
         android:gravity="center"
         android:text="JBanner"
         android:textColor="#FFFFFF"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </FrameLayout>

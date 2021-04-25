@@ -12,9 +12,6 @@ class PageJButton : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jbutton)
-        test.setOnClickListener {
-            Toast.makeText(this@PageJButton, "点击！", Toast.LENGTH_SHORT).show()
-        }
     }
 
     fun onTest(v: View) {
